@@ -15,7 +15,7 @@
 
     h1 {
       font-size: 3em;
-      margin-top: 20vh;
+      margin-top: 10vh;
       color: white;
       text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
       animation: glow 2s infinite alternate;
@@ -27,9 +27,23 @@
       text-shadow: 1px 1px 3px black;
     }
 
+    img {
+      margin-top: 20px;
+      width: 250px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+      animation: bounce 2s infinite;
+    }
+
     @keyframes glow {
       from { text-shadow: 0 0 10px #fff; }
       to { text-shadow: 0 0 20px #ff0, 0 0 30px #ff0; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     #confetti {
@@ -47,8 +61,11 @@
   <h1>🎉 Selamat Ulang Tahun Nicolas 🎂</h1>
   <h2>Hari ini genap 20 tahun 🎈</h2>
 
+  <!-- Foto Ulang Tahun -->
+  <img src="nicolas.jpg" alt="Foto Nicolas">
+
   <!-- Musik -->
-  <audio autoplay loop>
+  <audio autoplay loop controls>
     <source src="happy_birthday.mp3" type="audio/mpeg">
     Browser tidak mendukung audio.
   </audio>
