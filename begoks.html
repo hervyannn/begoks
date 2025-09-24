@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Selamat Ulang Tahun Nicolas</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 20vh;
+      color: white;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+      animation: glow 2s infinite alternate;
+    }
+
+    h2 {
+      font-size: 2em;
+      color: yellow;
+      text-shadow: 1px 1px 3px black;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff; }
+      to { text-shadow: 0 0 20px #ff0, 0 0 30px #ff0; }
+    }
+
+    #confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Selamat Ulang Tahun Nicolas 🎂</h1>
+  <h2>Hari ini genap 20 tahun 🎈</h2>
+
+  <!-- Musik -->
+  <audio autoplay loop>
+    <source src="happy_birthday.mp3" type="audio/mpeg">
+    Browser tidak mendukung audio.
+  </audio>
+
+  <!-- Canvas untuk Confetti -->
+  <canvas id="confetti"></canvas>
+
+  <script>
+    // Script confetti sederhana
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let pieces = [];
+    let numberOfPieces = 150;
+    let lastTime = Date.now();
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function randomColor() {
+      const colors = ['#ff0', '#0f0', '#00f', '#f0f', '#0ff', '#f00'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function init() {
+      for (let i = 0; i < numberOfPieces; i++) {
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 10 + 5,
+          speed: Math.random() + 1,
+          color: randomColor(),
+          rotation: Math.random() * 360
+        });
+      }
+    }
+
+    function update() {
+      const now = Date.now();
+      const delta = now - lastTime;
+      lastTime = now;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      pieces.forEach(p => {
+        p.y += p.speed * delta * 0.05;
+        if (p.y > canvas.height) p.y = -p.size;
+        ctx.fillStyle = p.color;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation += 0.01));
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+      });
+
+      requestAnimationFrame(update);
+    }
+
+    init();
+    update();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
